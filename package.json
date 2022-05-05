@@ -5,8 +5,19 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon ./bin/www"
   },
   "author": "changDev",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimon-ton/nodejs_basic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dimon-ton/nodejs_basic/issues"
+  },
+  "homepage": "https://github.com/dimon-ton/nodejs_basic#readme",
+  "dependencies": {
+    "nodemon": "^2.0.16"
+  }
 }

@@ -2,8 +2,8 @@ const http = require('http')
 
 const server = http.createServer((req,res)=>{
     const myHtml = `
-    <h1>hell pimon tungratog</h1>
-    <p>chang studio</p>
+    <h1>hello pimon tungratog</h1>
+    <p style="background:yellow;">chang studio</p>
     `
     res.write(myHtml)
     res.end()
