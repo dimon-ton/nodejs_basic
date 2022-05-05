@@ -1,57 +1,68 @@
+//--------------------------------------variable--------------------------------------
 
-
-//สร้าง promise
-const connect = true
 const url1 = 'kong.dev/file1.json'
 const url2 = 'kong.dev/file2.json'
 const url3 = 'kong.dev/file3.json'
-const url4 = 'kong.dev/file4.json'
-const url5 = 'kong.dev/file5.json'
+//1.--------------------------------------Callback--------------------------------------
 
 
-function downloading(url){
-    return new Promise(function(resolve,reject){
-        console.log(`downloading file from ${url}`)
-        setTimeout(()=>{
-            if(connect){
-                resolve(`load ${url} completely`)
-            }else{
-                reject(`found error`)
-            }
-        },1000)
-       
-    })
-}
+// function downloading(url,callback){
+//         console.log(`กำลังโหลดไฟล์จาก ${url}`)
+//     setTimeout(() => {
+//        callback(url)
+//     }, 1000);
+// }
 
-async function start(){
-    console.log(await downloading(url1))
-    console.log(await downloading(url2))
-    console.log(await downloading(url3))
-    console.log(await downloading(url4))
 
-}
 
-start()
-
-// downloading(url1).then(function(result){
-//     console.log(result)
-//     downloading(url2).then(function(result){
-//         console.log(result)
+// downloading(url1,function(result){
+//     console.log(`ดาวโหลด ${result} เรียบร้อย`)
+//     downloading(url2,function(result){
+//         console.log(`ดาวโหลด ${result} เรียบร้อย`)
+//         downloading(url3,function(result){
+//             console.log(`ดาวโหลด ${result} เรียบร้อย`)
+//         })
 //     })
 // })
 
-// downloading(url1).then(function(result){
-//     console.log(result)
-//     return downloading(url2)
-// }).then(function(result){
-//     console.log(result)
-//     return downloading(url3)
-// }).then(function(result){
-//     console.log(result)
-// })
+//2.--------------------------------------Promise--------------------------------------
+const connect = true
+function donwloadFile(url){
+    console.log(`กำลังดาวโหลดข้อมูลจาก ${url}`)
+    return new Promise(function(resolve,reject){
+        setTimeout(() => {
+            if(connect){
+                resolve(`โหลด ${url} เรียบร้อย`)
+            }else{
+                reject('เกิดข้อผิดพลาด')
+            }
+        }, 3000);
+    })
+}
 
-const util = require('./myModule/module')
-const now = require('./myModule/module').getCurrentTime
+//2.1--------------------------------------then, catch, finally--------------------------------------
+            // donwloadFile(url1).then(function(result){
+            //     console.log(result)
+            //     return donwloadFile(url2)
+            // }).then(function(result){
+            //     console.log(result)
+            //     return donwloadFile(url3)
+            // }).then((result)=>{
+            //     console.log(result)
+            // }).catch((result)=>{
+            //     console.log(result)
+            // }).finally(()=> console.log('จบการทำงาน'))
 
-console.log(util.add(5,4))
-console.log(now())
+//2.2--------------------------------------Async and Await--------------------------------------
+
+            async function start(){
+                console.log(await donwloadFile(url1))
+                console.log(await donwloadFile(url2))
+                console.log(await donwloadFile(url3))
+            }
+
+            start().catch((result)=>{
+                console.log(result)
+            }).finally(()=>{
+                console.log('จบการทำงาน')
+            })
