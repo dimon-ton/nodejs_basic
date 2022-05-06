@@ -2,7 +2,15 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/',(req,res)=>{
-    const products = ["clothes","fan","earbud","keaboard","table","router"]
+    const products = [
+        {name:"Notebook",price:25000,image:"images/products/product1.png"},  
+        {name:"clothes",price:2000,image:"images/products/product2.png"}, 
+        {name:"earphone",price:800,image:"images/products/product3.png"},
+        {name:"earphone",price:800,image:"images/products/product3.png"},
+        {name:"earphone",price:800,image:"images/products/product3.png"},
+        {name:"earphone",price:800,image:"images/products/product3.png"}
+       
+    ]
     res.render('index',{products:products})
 })
 
