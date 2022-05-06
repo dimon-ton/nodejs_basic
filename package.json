@@ -2,7 +2,7 @@
   "name": "nodejs_basic",
   "version": "1.0.0",
   "description": "nodejs for beginner",
-  "main": "epre.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./bin/www"
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/dimon-ton/nodejs_basic#readme",
   "dependencies": {
+    "ejs": "^3.1.7",
     "express": "^4.18.1",
     "nodemon": "^2.0.16"
   }
