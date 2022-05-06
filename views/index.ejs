@@ -8,20 +8,11 @@
 </head>
 <body>
     <h1>Hello EJS Template Engine</h1>
-    <b><%=name%></b>
-    <b><%=age%></b>
-    <b><%-address%></b>
-    <hr>
-
-    <% if (age>=18) {%>
-        <h1>ผ่านเกณฑ์การใช้งาน</h1>
-    <% } else {%>
-        <h1>ไม่ผ่านเกณฑ์</h1>
-    <% } %>
-    <hr>
-
-    <% for(i=1;i<=10;i++) {%>
-        <p>ลำดับที่ <%=i%></p>
-    <% } %>
+    <p><%= products%></p>
+    <ol>
+        <% for (index in products) {%>
+            <li><%= products[index]%></>
+        <% } %>
+    </ol>
 </body>
 </html>
