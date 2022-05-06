@@ -14,6 +14,13 @@ router.get('/',(req,res)=>{
     res.render('index',{products:products})
 })
 
+router.get('/addForm',(req,res)=>{
+  res.render('form')
+})
+
+router.get('/manage',(req,res)=>{
+    res.render('manage')
+})
 
 
 
