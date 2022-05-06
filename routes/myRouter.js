@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/',(req,res)=>{
-    res.render('index.ejs')
+    const name = "pimon tungratog"
+    const age = 35
+    const address = "<h3>กรุงเทพ หาดใหญ่</h3>"
+    res.render('index',{name:name,age:age,address:address})
 })
 const path = require('path')
 
