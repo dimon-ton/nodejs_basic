@@ -23,8 +23,8 @@ router.get('/manage',(req,res)=>{
 })
 
 
-router.get('/insert',(req,res)=>{
-    console.log(req.query)
+router.post('/insert',(req,res)=>{
+    console.log(req.body)
     res.render('form')
 })
 
