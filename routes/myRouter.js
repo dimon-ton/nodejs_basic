@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+//เรียกใช้งานโมเดล
+const Product = require('../model/products')
 
 router.get('/',(req,res)=>{
     const products = [
