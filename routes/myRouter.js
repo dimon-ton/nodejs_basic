@@ -3,6 +3,23 @@ const router = express.Router()
 //เรียกใช้งานโมเดล
 const Product = require('../model/products')
 
+//อัพโหลดไฟล์
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'./public/images/products')
+    },
+    filename:function(req,file,cb){
+        cb(null,Date.now()+".jpg")// เปลี่ยนชื่อไฟล์ ป้องกันชื่อซ้ำ
+    }
+})
+
+//เริ่มต้นอัพโหลด
+const upload = multer({
+    storage:storage
+})
+
 router.get('/',(req,res)=>{
     const products = [
         {name:"Notebook",price:25000,image:"images/products/product1.png"},  
@@ -25,12 +42,13 @@ router.get('/manage',(req,res)=>{
 })
 
 
-router.post('/insert',(req,res)=>{
-    // console.log(req.body)
+router.post('/insert',upload.single("image"),(req,res)=>{
+   
+    console.log(req.body)
     let data = new Product({
         name:req.body.name,
         price:req.body.price,
-        image:req.body.image,
+        image:req.file.filename,
         description:req.body.description
     })
     Product.saveProduct(data,(err)=>{
