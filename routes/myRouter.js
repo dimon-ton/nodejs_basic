@@ -27,7 +27,7 @@ router.get('/',(req,res)=>{
     
 })
 
-router.get('/addForm',(req,res)=>{
+router.get('/add-product',(req,res)=>{
   res.render('form')
 })
 
@@ -59,6 +59,22 @@ router.post('/insert',upload.single("image"),(req,res)=>{
         if(err) console.log(err)
         res.redirect('/')
     })
+})
+
+router.get('/:id',(req,res)=>{
+    const product_id = req.params.id
+    Product.findOne({_id:product_id}).exec((err,doc)=>{
+        res.render('product',{product:doc})
+    })
+    
+  })
+
+  router.post('/edit',(req,res)=>{
+   const edit_id = req.body.edit_id
+   Product.findOne({_id:edit_id}).exec((err,doc)=>{
+        res.render('edit',{product:doc})
+    })
+  
 })
 
 
