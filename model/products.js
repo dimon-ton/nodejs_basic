@@ -21,3 +21,8 @@ let Product = mongoose.model("products",productSchema)
 
 //ส่งออกโมเดล
 module.exports = Product
+
+//ออกแบบฟังก์ชั่นเพื่อบันทึกข้อมูล
+module.exports.saveProduct = function(model,data){
+    model.save(data)
+}
