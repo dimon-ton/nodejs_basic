@@ -5,6 +5,7 @@ const Product = require('../model/products')
 
 //อัพโหลดไฟล์
 const multer = require('multer')
+const { rawListeners } = require('../model/products')
 
 const storage = multer.diskStorage({
     destination:function(req,file,cb){
@@ -28,16 +29,32 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/add-product',(req,res)=>{
-  res.render('form')
+    if(req.cookies.login){
+        res.render('form')
+    }else{
+        res.render('admin')
+    }  
 })
 
 router.get('/manage',(req,res)=>{
-    Product.find().exec((err,doc)=>{
-        res.render('manage',{products:doc})
-    })
+    if(req.cookies.login){
+        Product.find().exec((err,doc)=>{
+            res.render('manage',{products:doc})
+        })
+    }else{
+        res.render('admin')
+    }
    
 })
 
+router.get('/logout',(req,res)=>{
+    res.clearCookie('username')
+    res.clearCookie('password')
+    res.clearCookie('login')
+    res.redirect('/manage')
+   
+ })
+ 
 router.get('/delete/:id',(req,res)=>{
     Product.findByIdAndDelete(req.params.id,{useFindAndModify:false}).exec(err=>{
         if (err) console.log(err)
@@ -90,5 +107,23 @@ router.post('/update',(req,res)=>{
         res.redirect('/manage')
     })
 })
+
+
+router.post('/login',(req,res)=>{
+    const username = req.body.username
+    const password = req.body.password
+    const timeExpire = 30000
+
+    if (username === "admin" && password === "123") {
+        res.cookie('username',username,{maxAge:timeExpire})
+        res.cookie('password',password,{maxAge:timeExpire})
+        res.cookie('login',true,{maxAge:timeExpire})
+        res.redirect('/manage')
+    }else{
+        res.render('404')
+    }
+})
+
+
 
 module.exports = router
