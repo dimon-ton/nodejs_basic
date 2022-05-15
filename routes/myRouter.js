@@ -77,5 +77,18 @@ router.get('/:id',(req,res)=>{
   
 })
 
+router.post('/update',(req,res)=>{
+   
+    const update_id = req.body.update_id
+    let data = {
+        name:req.body.name,
+        price:req.body.price,
+        description:req.body.description
+    }
+    // อัพเดดข้อมูล
+    Product.findByIdAndUpdate(update_id,data,{useFindAndModify:false}).exec(err=>{
+        res.redirect('/manage')
+    })
+})
 
 module.exports = router
