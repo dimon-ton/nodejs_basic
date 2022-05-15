@@ -29,15 +29,16 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/add-product',(req,res)=>{
-    if(req.cookies.login){
+    if(req.session.login){
         res.render('form')
     }else{
         res.render('admin')
-    }  
+    } 
+    
 })
 
 router.get('/manage',(req,res)=>{
-    if(req.cookies.login){
+    if(req.session.login){
         Product.find().exec((err,doc)=>{
             res.render('manage',{products:doc})
         })
@@ -48,13 +49,11 @@ router.get('/manage',(req,res)=>{
 })
 
 router.get('/logout',(req,res)=>{
-    res.clearCookie('username')
-    res.clearCookie('password')
-    res.clearCookie('login')
-    res.redirect('/manage')
-   
+    req.session.destroy((err)=>{
+        res.redirect('/manage')
+    })
  })
- 
+
 router.get('/delete/:id',(req,res)=>{
     Product.findByIdAndDelete(req.params.id,{useFindAndModify:false}).exec(err=>{
         if (err) console.log(err)
@@ -114,10 +113,11 @@ router.post('/login',(req,res)=>{
     const password = req.body.password
     const timeExpire = 30000
 
-    if (username === "admin" && password === "123") {
-        res.cookie('username',username,{maxAge:timeExpire})
-        res.cookie('password',password,{maxAge:timeExpire})
-        res.cookie('login',true,{maxAge:timeExpire})
+    if(username === "admin" && password==="123"){
+        req.session.username = username
+        req.session.password = password
+        req.session.login = true
+        req.session.cookie.maxAge = timeExpire
         res.redirect('/manage')
     }else{
         res.render('404')
